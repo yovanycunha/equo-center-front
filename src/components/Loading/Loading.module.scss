@@ -1,0 +1,55 @@
+@use "@/app/styles/colors.module.scss" as *;
+@use "@/app/styles/mixins.scss" as *;
+
+.container {
+  position: relative;
+
+  &.hide {
+    .content {
+      opacity: 0;
+    }
+  }
+
+  &.removePosition {
+    position: unset;
+  }
+
+  .overlay {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    z-index: 1;
+
+    .spin {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 1);
+
+      border-bottom-color: transparent;
+
+      animation: spin 2s linear infinite;
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(359deg);
+        }
+      }
+    }
+
+    @include inset(0);
+  }
+
+  .content {
+    opacity: 1;
+
+    transition: 0.05s ease all;
+  }
+}

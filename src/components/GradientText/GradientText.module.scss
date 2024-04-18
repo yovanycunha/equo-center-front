@@ -1,0 +1,22 @@
+@use "@/app/styles/mixins.scss" as *;
+
+.container {
+  .hiddenText {
+    @include seo-hide();
+  }
+
+  .visibleText {
+    &::after {
+      background-clip: text;
+      box-decoration-break: clone;
+
+      background-size: 100%;
+
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+      -ms-text-fill-color: transparent;
+
+      content: attr(data-content);
+    }
+  }
+}

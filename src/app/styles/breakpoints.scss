@@ -1,0 +1,28 @@
+$tabletMedium: 720px;
+$pcSmall: 1024px;
+$pcMedium: 1280px;
+$pcLarge: 1440px;
+
+@mixin from720() {
+  @media screen and (min-width: $tabletMedium) {
+    @content;
+  }
+}
+
+@mixin from1024() {
+  @media screen and (min-width: $pcSmall) {
+    @content;
+  }
+}
+
+@mixin from1280() {
+  @media screen and (min-width: $pcMedium) {
+    @content;
+  }
+}
+
+@mixin from1440() {
+  @media screen and (min-width: $pcLarge) {
+    @content;
+  }
+}

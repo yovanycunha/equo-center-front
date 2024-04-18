@@ -1,0 +1,117 @@
+@use "@/app/styles/colors.module.scss" as *;
+
+.btn {
+  width: 100%;
+
+  overflow: hidden;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: $white;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: 0.28px;
+
+  line-height: 1.9rem;
+
+  padding: 21px 55px;
+
+  border: 0 solid transparent;
+
+  position: relative;
+
+  background: green;
+
+  border-radius: 4px;
+
+  transition: all 0.3s ease-in-out;
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &.small {
+    max-width: 170px;
+    height: 40px;
+
+    font-size: 1.4rem;
+
+    padding: 8px 16px;
+  }
+
+  &.medium {
+    max-width: 210px;
+    height: 48px;
+
+    padding: 12px 24px;
+  }
+
+  &.large {
+    max-width: 210px;
+    height: 56px;
+
+    padding: 16px 24px;
+  }
+
+  &.secondary {
+    background: none;
+
+    &.dark {
+      &:focus {
+        box-shadow: 0 0 0 4px #540028;
+        outline: 0;
+      }
+    }
+  }
+
+  &.dark {
+    &:focus {
+      box-shadow: 0 0 0 4px #540028;
+      outline: 0;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.24;
+
+    cursor: not-allowed;
+  }
+
+  svg {
+    margin-right: 8px;
+  }
+
+  .buttonChildren {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    z-index: 2;
+  }
+
+  .buttonProgress {
+    width: 0%;
+    height: 100%;
+
+    border: 0 solid transparent;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 1;
+
+    transition: width 2s ease;
+  }
+}

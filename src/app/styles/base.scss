@@ -1,0 +1,15 @@
+@use "colors.module.scss" as *;
+
+html,
+body {
+  font-family: "Montserrat", "icomoon", sans-serif, Arial, Helvetica;
+  font-size: 62.5%;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: normal;
+  font-variant: normal;
+
+  scroll-behavior: smooth;
+
+  font-display: swap;
+}

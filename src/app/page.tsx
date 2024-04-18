@@ -1,94 +1,80 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import { useForm } from "react-hook-form";
+import scss from "./page.module.scss";
+import Input from "@/components/Input/Input";
+import Button from "@/components/Button/Button";
+
+type TAtividade = {
+  nome: string;
+  tipo: string;
+};
+
+interface IFormPratica {
+  praticante: string;
+  atividades: TAtividade[];
+  instrutor: string;
+}
 
 export default function Home() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+    reset,
+    setError,
+  } = useForm<IFormPratica>({
+    mode: "onBlur",
+    defaultValues: { praticante: "", instrutor: "", atividades: [] },
+  });
+
+  const praticanteRef = register("praticante", {
+    required: true,
+    minLength: 3,
+  });
+  const instrutorRef = register("instrutor", {
+    required: true,
+    minLength: 3,
+  });
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <main className={scss.main}>
+      <div className={scss.container}>
+        <h1 className={scss.title}>Cadastro de Prática</h1>
+
+        <form>
+          <div className={scss.inputGroup}>
+            <Input
+              name={praticanteRef.name}
+              placeholder="Nome do Praticante"
+              inputref={praticanteRef.ref}
+              value={watch("praticante")}
+              onChange={praticanteRef.onChange}
+              onBlur={praticanteRef.onBlur}
+              errors={errors.praticante && true}
+              errorMessage={errors.praticante?.message}
             />
-          </a>
-        </div>
-      </div>
+          </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+          <div className={scss.inputGroup}>
+            <Input
+              name={instrutorRef.name}
+              placeholder="Nome do Instrutor"
+              inputref={instrutorRef.ref}
+              value={watch("praticante")}
+              onChange={instrutorRef.onChange}
+              onBlur={instrutorRef.onBlur}
+              errors={errors.instrutor && true}
+              errorMessage={errors.instrutor?.message}
+            />
+          </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+          <Button type="submit" loading={false}>
+            Cadastrar
+          </Button>
+        </form>
       </div>
     </main>
   );

@@ -1,0 +1,168 @@
+@use "@/app/styles/breakpoints" as *;
+@use "@/app/styles/colors.module.scss" as *;
+
+.container {
+  color: #757575;
+  font-size: 1.4rem;
+
+  margin: 12px 0 24px;
+  letter-spacing: 0.1rem;
+
+  .inputWrapper {
+    position: relative;
+
+    .label {
+      color: currentColor;
+
+      position: absolute;
+      top: 15px;
+      left: 14px;
+
+      transform: translate3d(0, 0, 0);
+
+      transition: all 0.2s ease-in-out;
+
+      pointer-events: none;
+
+      &.labelAnimate {
+        // color: red;
+        font-size: 1.2rem;
+
+        transform: translate3d(0, -24px, 0);
+
+        &.darkTheme {
+          color: $white;
+        }
+      }
+
+      &.labelError {
+        color: $error;
+      }
+
+      &.labelFilled {
+        color: $gray600;
+      }
+    }
+
+    .input {
+      width: 100%;
+
+      color: #231f20;
+      font-size: 1.4rem;
+
+      padding: 14px 16px;
+      border: 0;
+      box-sizing: border-box;
+
+      background: none;
+      letter-spacing: 0.1rem;
+
+      &.darkTheme {
+        color: $white;
+
+        &:-webkit-autofill {
+          box-shadow: 0 0 0 30px $gray900 inset !important;
+          -webkit-text-fill-color: $white !important;
+        }
+      }
+
+      &:focus {
+        outline: 0;
+      }
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
+    .fieldset {
+      padding: 0 8px;
+      border: 1px solid currentColor;
+
+      position: absolute;
+      top: -5px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      border-radius: 4px;
+
+      pointer-events: none;
+
+      &.fieldsetFocus {
+        border: 2px solid;
+      }
+
+      &.fieldsetError {
+        border: 1px solid $error;
+      }
+
+      &.fieldsetFilled {
+        border: 1px solid $gray600;
+      }
+
+      .legend {
+        width: auto;
+        max-width: 0.01px;
+        height: 11px;
+
+        display: block;
+
+        text-align: left;
+
+        padding: 0;
+
+        transition: max-width 50ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+
+        visibility: hidden;
+
+        &.legendFocus {
+          max-width: 100%;
+        }
+
+        &.legendFilled {
+          width: auto;
+        }
+
+        .legendTitle {
+          font-size: 1.22rem;
+
+          padding: 0 2px;
+        }
+      }
+    }
+  }
+  .errorWrapper {
+    display: flex;
+
+    align-items: center;
+
+    color: currentColor;
+    font-weight: normal;
+
+    margin: 5px 0 0 5px;
+
+    .icon {
+      font-size: 1.4rem;
+
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    .errorMessage {
+      color: $error;
+      text-align: start;
+      font-size: 1.1rem;
+
+      margin-bottom: -1px;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    min-height: 70px;
+
+    margin-bottom: 8px;
+  }
+}
