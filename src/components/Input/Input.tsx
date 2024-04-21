@@ -30,9 +30,7 @@ const Input: FC<IInputProps> = (props) => {
   const renderErrorMessage = () => (
     <div className={scss.errorWrapper}>
       {/* <img src="./images/alert.svg" alt="" className={scss.icon} /> */}
-      <span className={scss.errorMessage}>
-        O campo de {props.name} é obrigatório.
-      </span>
+      <span className={scss.errorMessage}>Este campo é obrigatório.</span>
     </div>
   );
 
@@ -42,6 +40,8 @@ const Input: FC<IInputProps> = (props) => {
     labelClass.push(scss.labelAnimate);
     containerClass.push(scss.containerFocus);
   }
+
+  if (props.className) containerClass.push(props.className);
 
   return (
     <div className={containerClass.join(" ")}>
