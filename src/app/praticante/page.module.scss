@@ -51,6 +51,16 @@
       border-radius: 4px;
 
       margin: 24px auto 16px;
+
+      .inputGroups {
+        .inlineGroup {
+          flex-direction: row;
+
+          .nameInput {
+            width: 50%;
+          }
+        }
+      }
     }
   }
 }
