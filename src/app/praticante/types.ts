@@ -1,4 +1,4 @@
-export interface IFormPraticante {
+export interface IPraticante {
   nome: string;
   CID: string;
   dataNascimento: string;

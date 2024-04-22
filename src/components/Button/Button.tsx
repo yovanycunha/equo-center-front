@@ -57,9 +57,9 @@ const Button: FC<IButtonProps> = (props) => {
   );
 };
 
-Button.defaultProps = {
-  type: "button",
-  loading: false,
-} as IButtonProps;
+// Button.defaultProps = {
+//   type: "button",
+//   loading: false,
+// } as IButtonProps;
 
 export default Button;

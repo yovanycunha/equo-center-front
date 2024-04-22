@@ -2,11 +2,20 @@
 
 import { useForm } from "react-hook-form";
 import scss from "./page.module.scss";
-import { IFormPraticante } from "./types";
+import { IPraticante } from "./types";
 import Input from "@/components/Input/Input";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "@/components/Button/Button";
+import { RootState } from "@/redux";
 
 export default function CadastroPraticante() {
+  const dispatch = useDispatch();
+  const praticantesList = useSelector(
+    (state: RootState) => state.praticante.praticantes
+  );
+
+  console.log("lista inicial", praticantesList);
+
   const {
     register,
     handleSubmit,
@@ -15,7 +24,7 @@ export default function CadastroPraticante() {
     setValue,
     reset,
     setError,
-  } = useForm<IFormPraticante>({
+  } = useForm<IPraticante>({
     mode: "onBlur",
   });
 
@@ -31,6 +40,7 @@ export default function CadastroPraticante() {
 
   const dataNascimentoRef = register("dataNascimento", {
     required: true,
+    minLength: 8,
   });
 
   const nomeResponsavelRef = register("nomeResponsavel", {
@@ -60,11 +70,20 @@ export default function CadastroPraticante() {
     required: false,
   });
 
+  const onSubmit = async (data: IPraticante) => {
+    try {
+      dispatch({ type: "praticante/addPraticante", payload: data });
+      reset();
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
   return (
     <main className={scss.main}>
       <div className={scss.container}>
         <h1 className={scss.title}>Cadastro do Praticante</h1>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <h2 className={scss.subtitle}>Informações do Praticante</h2>
           <div className={scss.inputGroups}>
             <Input
@@ -79,7 +98,7 @@ export default function CadastroPraticante() {
             />
             <div className={scss.inlineGroup}>
               <Input
-                name={CIDRef.name}
+                name={dataNascimentoRef.name}
                 placeholder="Data de Nascimento"
                 inputref={dataNascimentoRef.ref}
                 value={watch("dataNascimento")}
