@@ -43,6 +43,24 @@ export default function CadastroPraticante() {
     minLength: 8,
   });
 
+  const idadeRef = register("idade", {
+    required: false,
+    maxLength: 2,
+  });
+
+  const dataAdmissaoRef = register("dataAdmissao", {
+    required: false,
+  });
+
+  const generoRef = register("genero", {
+    required: false,
+  });
+
+  const documentoRef = register("documento", {
+    required: true,
+    minLength: 7,
+  });
+
   const nomeResponsavelRef = register("nomeResponsavel", {
     required: true,
     minLength: 3,
@@ -51,6 +69,11 @@ export default function CadastroPraticante() {
   const telefoneResponsavelRef = register("telefoneResponsavel", {
     required: true,
     //TODO: Add phone validation
+  });
+
+  const documentoResponsavelRef = register("documentoResponsavel", {
+    required: true,
+    minLength: 7,
   });
 
   const emailResponsavelRef = register("emailResponsavel", {
@@ -110,6 +133,58 @@ export default function CadastroPraticante() {
               />
 
               <Input
+                name={idadeRef.name}
+                placeholder="Idade"
+                inputref={idadeRef.ref}
+                value={watch("idade")}
+                onChange={idadeRef.onChange}
+                onBlur={idadeRef.onBlur}
+                errors={errors.CID && true}
+                errorMessage={errors.CID?.message}
+                className={scss.nameInput}
+              />
+            </div>
+
+            <div className={scss.inlineGroup}>
+              <Input
+                name={documentoRef.name}
+                placeholder="Documento"
+                inputref={documentoRef.ref}
+                value={watch("documento")}
+                onChange={documentoRef.onChange}
+                onBlur={documentoRef.onBlur}
+                errors={errors.documento && true}
+                errorMessage={errors.documento?.message}
+                className={scss.nameInput}
+              />
+
+              <Input
+                name={generoRef.name}
+                placeholder="Gênero"
+                inputref={generoRef.ref}
+                value={watch("genero")}
+                onChange={generoRef.onChange}
+                onBlur={generoRef.onBlur}
+                errors={errors.genero && true}
+                errorMessage={errors.genero?.message}
+                className={scss.nameInput}
+              />
+            </div>
+
+            <div className={scss.inlineGroup}>
+              <Input
+                name={dataAdmissaoRef.name}
+                placeholder="Data de admissão"
+                inputref={dataAdmissaoRef.ref}
+                value={watch("dataAdmissao")}
+                onChange={dataAdmissaoRef.onChange}
+                onBlur={dataAdmissaoRef.onBlur}
+                errors={errors.dataAdmissao && true}
+                errorMessage={errors.dataAdmissao?.message}
+                className={scss.nameInput}
+              />
+
+              <Input
                 name={CIDRef.name}
                 placeholder="CID"
                 inputref={CIDRef.ref}
@@ -134,16 +209,31 @@ export default function CadastroPraticante() {
               errorMessage={errors.nomeResponsavel?.message}
             />
 
-            <Input
-              name={telefoneResponsavelRef.name}
-              placeholder="Telefone"
-              inputref={telefoneResponsavelRef.ref}
-              value={watch("telefoneResponsavel")}
-              onChange={telefoneResponsavelRef.onChange}
-              onBlur={telefoneResponsavelRef.onBlur}
-              errors={errors.telefoneResponsavel && true}
-              errorMessage={errors.telefoneResponsavel?.message}
-            />
+            <div className={scss.inlineGroup}>
+              <Input
+                name={documentoResponsavelRef.name}
+                placeholder="Documento do Responsável"
+                inputref={documentoResponsavelRef.ref}
+                value={watch("documentoResponsavel")}
+                onChange={documentoResponsavelRef.onChange}
+                onBlur={documentoResponsavelRef.onBlur}
+                errors={errors.documentoResponsavel && true}
+                errorMessage={errors.documentoResponsavel?.message}
+                className={scss.nameInput}
+              />
+
+              <Input
+                name={telefoneResponsavelRef.name}
+                placeholder="Telefone"
+                inputref={telefoneResponsavelRef.ref}
+                value={watch("telefoneResponsavel")}
+                onChange={telefoneResponsavelRef.onChange}
+                onBlur={telefoneResponsavelRef.onBlur}
+                errors={errors.telefoneResponsavel && true}
+                errorMessage={errors.telefoneResponsavel?.message}
+                className={scss.nameInput}
+              />
+            </div>
 
             <Input
               name={emailResponsavelRef.name}
