@@ -7,6 +7,7 @@ import Input from "@/components/Input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@/components/Button/Button";
 import { RootState } from "@/redux";
+import { useEffect } from "react";
 
 export default function CadastroPraticante() {
   const dispatch = useDispatch();
@@ -101,6 +102,60 @@ export default function CadastroPraticante() {
       console.log(err);
     }
   };
+
+  const nascimentoValue = watch("dataNascimento");
+  const admissaoValue = watch("dataAdmissao");
+
+  const telefoneValue = watch("telefoneResponsavel");
+
+  const normalizeCepNumber = (value: String | undefined) => {
+    if (!value) return "";
+    return value
+      .replace(/\D/g, "")
+      .replace(/^(\d{5})(\d{3})+?$/, "$1-$2")
+      .replace(/(-\d{3})(\d+?)/, "$1");
+  };
+
+  const normalizeCnpjNumber = (value: String | undefined) => {
+    if (!value) return "";
+
+    return value
+      .replace(/[\D]/g, "")
+      .replace(/(\d{2})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1/$2")
+      .replace(/(\d{4})(\d)/, "$1-$2")
+      .replace(/(-\d{2})\d+?$/, "$1");
+  };
+
+  const normalizePhoneNumber = (value: String | undefined) => {
+    if (!value) return "";
+
+    return value
+      .replace(/[\D]/g, "")
+      .replace(/(\d{2})(\d)/, "($1) $2")
+      .replace(/(\d{5})(\d)/, "$1-$2")
+      .replace(/(-\d{4})(\d+?)/, "$1");
+  };
+
+  const normalizeDate = (value: String | undefined) => {
+    if (!value) return "";
+
+    return value
+      .replace(/[\D]/g, "")
+      .replace(/(\d{2})(\d)/, "$1/$2")
+      .replace(/(\d{2})(\d)/, "$1/$2")
+      .replace(/(\d{4})(\d)/, "$1");
+  };
+
+  useEffect(() => {
+    setValue("dataAdmissao", normalizeDate(admissaoValue));
+    setValue("dataNascimento", normalizeDate(nascimentoValue));
+  }, [admissaoValue, nascimentoValue, setValue]);
+
+  useEffect(() => {
+    setValue("telefoneResponsavel", normalizePhoneNumber(telefoneValue));
+  }, [telefoneValue, setValue]);
 
   return (
     <main className={scss.main}>
