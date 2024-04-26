@@ -2,12 +2,14 @@
 
 import { useForm } from "react-hook-form";
 import scss from "./page.module.scss";
-import { IPraticante } from "./types";
+import { EGenero, IPraticante } from "./types";
 import Input from "@/components/Input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@/components/Button/Button";
 import { RootState } from "@/redux";
 import { useEffect } from "react";
+import Select from "@/components/Select/Select";
+import Option from "@/components/Option/Option";
 
 export default function CadastroPraticante() {
   const dispatch = useDispatch();
@@ -25,8 +27,10 @@ export default function CadastroPraticante() {
     setValue,
     reset,
     setError,
+    clearErrors,
   } = useForm<IPraticante>({
     mode: "onBlur",
+    defaultValues: { genero: EGenero.Masculino },
   });
 
   const nomeRef = register("nome", {
@@ -148,6 +152,19 @@ export default function CadastroPraticante() {
       .replace(/(\d{4})(\d)/, "$1");
   };
 
+  const renderOptions = () =>
+    (Object.keys(EGenero) as Array<keyof typeof EGenero>)
+      .map((gender, index) => (
+        <Option
+          key={`${gender + index}`}
+          value={gender}
+          selected={watch("genero") === gender}
+        >
+          {gender}
+        </Option>
+      ))
+      .reverse();
+
   useEffect(() => {
     setValue("dataAdmissao", normalizeDate(admissaoValue));
     setValue("dataNascimento", normalizeDate(nascimentoValue));
@@ -213,7 +230,31 @@ export default function CadastroPraticante() {
                 className={scss.nameInput}
               />
 
-              <Input
+              <Select
+                arrow
+                value={watch("genero")}
+                errors={!!errors.genero}
+                label="Gênero"
+                onChange={(value: keyof typeof EGenero) =>
+                  setValue("genero", value)
+                }
+                errorMessage="Gênero é um campo obrigatório."
+                onBlur={() => {
+                  if (!watch("genero")) {
+                    setError("genero", {
+                      type: "manual",
+                      message: "Gênero é um campo obrigatório",
+                    });
+                  }
+                }}
+                onFocus={() => {
+                  clearErrors("genero");
+                }}
+              >
+                {renderOptions()}
+              </Select>
+
+              {/* <Input
                 name={generoRef.name}
                 placeholder="Gênero"
                 inputref={generoRef.ref}
@@ -223,7 +264,7 @@ export default function CadastroPraticante() {
                 errors={errors.genero && true}
                 errorMessage={errors.genero?.message}
                 className={scss.nameInput}
-              />
+              /> */}
             </div>
 
             <div className={scss.inlineGroup}>
