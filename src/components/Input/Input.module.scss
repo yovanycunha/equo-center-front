@@ -8,6 +8,10 @@
   margin: 12px 0 0px;
   letter-spacing: 0.1rem;
 
+  &.containerFocus {
+    color: $info;
+  }
+
   .inputWrapper {
     position: relative;
 
@@ -25,7 +29,7 @@
       pointer-events: none;
 
       &.labelAnimate {
-        // color: red;
+        color: $info;
         font-size: 1.2rem;
 
         transform: translate3d(0, -24px, 0);
