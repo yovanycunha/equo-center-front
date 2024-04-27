@@ -70,8 +70,6 @@ const Select: FC<any> = (props) => {
     </div>
   );
 
-  console.log(props, "props");
-
   const onChangeFilterValue = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterValue(e.target.value);
     if (props.onChangeFilterValue) props.onChangeFilterValue(e.target.value);
@@ -175,8 +173,6 @@ const Select: FC<any> = (props) => {
   }
 
   if (props.className) containerClass.push(props.className);
-
-  console.log(props.value, "value");
 
   return (
     <div role="listbox" className={containerClass.join(" ")}>
