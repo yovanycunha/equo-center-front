@@ -1,0 +1,22 @@
+@use "@/app/styles/colors.module.scss" as *;
+@use "@/app/styles/breakpoints" as *;
+
+.main {
+  .container {
+    padding: 24px;
+    margin: 0 auto 24px;
+  }
+}
+
+@include from1024 {
+  .main {
+    .container {
+      width: 87%;
+      max-width: 1200px;
+      background: $gray100;
+      border-radius: 4px;
+
+      margin: 24px auto 16px;
+    }
+  }
+}
