@@ -8,5 +8,7 @@ export interface ICentro {
   nome: string;
   cnpj: string;
 
-  fisio: IProfissional;
+  fisioterapeuta: IProfissional;
+  psicologo: IProfissional;
+  medico: IProfissional;
 }
