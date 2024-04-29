@@ -4,10 +4,8 @@ import { useForm } from "react-hook-form";
 import scss from "./page.module.scss";
 import Input from "@/components/Input/Input";
 import { ICentro } from "./types";
-import { useState } from "react";
 
 export default function CadastroEquipe() {
-  const [fisioCertified, setFisioCertified] = useState(false);
   const {
     register,
     handleSubmit,
@@ -22,9 +20,10 @@ export default function CadastroEquipe() {
     defaultValues: {
       nome: "",
       cnpj: "",
-      fisioterapeuta: { certified: fisioCertified },
+      fisioterapeuta: { certified: false },
       psicologo: { certified: false },
       medico: { certified: false },
+      equitador: { certified: false, professionalId: "" },
     },
   });
 
@@ -69,9 +68,17 @@ export default function CadastroEquipe() {
     required: true,
   });
 
+  const equitadorNameRef = register("equitador.nome", {
+    required: true,
+    minLength: { value: 3, message: "Nome inválido" },
+  });
+
+  const equitadorCertifiedRef = register("equitador.certified", {
+    required: true,
+  });
+
   const onFisioCertifiedChange = () => {
     setValue("fisioterapeuta.certified", !watch("fisioterapeuta.certified"));
-    // setFisioCertified(!fisioCertified);
   };
 
   const onPsicoCertifiedChange = () => {
@@ -80,6 +87,10 @@ export default function CadastroEquipe() {
 
   const onMedicoCertifiedChange = () => {
     setValue("medico.certified", !watch("medico.certified"));
+  };
+
+  const onEquitadorCertifiedChange = () => {
+    setValue("equitador.certified", !watch("equitador.certified"));
   };
 
   return (
@@ -212,6 +223,36 @@ export default function CadastroEquipe() {
                 <span>Possui Curso Básico de Equoterapia</span>
               </label>
             </div>
+          </div>
+
+          <div className={scss.divider} />
+
+          <div className={scss.inputGroups}>
+            <h3 className={scss.professionalTitle}>Equitador</h3>
+            <Input
+              name={equitadorNameRef.name}
+              placeholder="Nome do Equitador"
+              inputref={equitadorNameRef.ref}
+              value={watch("equitador.nome")}
+              onChange={equitadorNameRef.onChange}
+              onBlur={equitadorNameRef.onBlur}
+              errors={errors.equitador?.nome && true}
+              errorMessage={errors.equitador?.nome?.message}
+            />
+
+            <label
+              onClick={onEquitadorCertifiedChange}
+              htmlFor="checkbox"
+              className={scss.checkboxContainer}
+            >
+              <input
+                type="checkbox"
+                id="checkbox"
+                name={equitadorCertifiedRef.name}
+                className={scss.checkbox}
+              />
+              <span>Possui Curso Básico de Equoterapia</span>
+            </label>
           </div>
         </form>
       </div>

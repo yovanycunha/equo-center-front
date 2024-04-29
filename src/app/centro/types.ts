@@ -11,4 +11,5 @@ export interface ICentro {
   fisioterapeuta: IProfissional;
   psicologo: IProfissional;
   medico: IProfissional;
+  equitador: IProfissional;
 }
