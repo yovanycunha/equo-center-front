@@ -28,6 +28,7 @@
     }
 
     .professionalTitle {
+      text-transform: capitalize;
       color: $text;
       font-size: 1.6rem;
       font-weight: 500;
