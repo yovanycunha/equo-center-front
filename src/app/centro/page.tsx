@@ -4,12 +4,11 @@ import { useForm } from "react-hook-form";
 import scss from "./page.module.scss";
 import Input from "@/components/Input/Input";
 import { ICentro } from "./types";
-import { CSSProperties, useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
+
+import Header from "@/components/Header/Header";
 
 export default function CadastroEquipe() {
-  const navContainer = [scss.navContainer];
-
   const [isBasicTeam, setIsBasicTeam] = useState<Boolean>(true);
 
   const {
@@ -161,32 +160,9 @@ export default function CadastroEquipe() {
     );
   };
 
-  const getNavbarStyle = () => {
-    const style: CSSProperties = { top: "0px" };
-
-    return style;
-  };
-
-  const renderLink = ({ label, to }: any) => {
-    return (
-      <li className={scss.linkWrapper}>
-        <Link href={to} rel="noreferrer" className={scss.link}>
-          {label}
-        </Link>
-      </li>
-    );
-  };
-
   return (
     <>
-      <header className={scss.header}>
-        <nav className={navContainer.join(" ")} style={getNavbarStyle()}>
-          <ul className={scss.linksList}>
-            {renderLink({ label: "Página Inicial", to: "/" })}
-            {renderLink({ label: "Novo Praticante", to: "/praticante" })}
-          </ul>
-        </nav>
-      </header>
+      <Header />
       <main className={scss.main}>
         <div className={scss.container}>
           <h1 className={scss.title}>Cadastro da Equipe</h1>
