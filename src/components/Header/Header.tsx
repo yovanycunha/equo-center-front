@@ -29,6 +29,7 @@ const Header: FC = () => {
         <ul className={scss.linksList}>
           {renderLink({ label: "Página Inicial", to: "/" })}
           {renderLink({ label: "Novo Praticante", to: "/praticante" })}
+          {renderLink({ label: "Nova Equipe", to: "/centro" })}
         </ul>
       </nav>
     </header>

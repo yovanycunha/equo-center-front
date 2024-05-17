@@ -162,7 +162,7 @@ export default function CadastroEquipe() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main className={scss.main}>
         <div className={scss.container}>
           <h1 className={scss.title}>Cadastro da Equipe</h1>
