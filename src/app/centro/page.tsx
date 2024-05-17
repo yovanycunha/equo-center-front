@@ -4,9 +4,12 @@ import { useForm } from "react-hook-form";
 import scss from "./page.module.scss";
 import Input from "@/components/Input/Input";
 import { ICentro } from "./types";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
+import Link from "next/link";
 
 export default function CadastroEquipe() {
+  const navContainer = [scss.navContainer];
+
   const [isBasicTeam, setIsBasicTeam] = useState<Boolean>(true);
 
   const {
@@ -158,42 +161,63 @@ export default function CadastroEquipe() {
     );
   };
 
-  console.table(watch("fisioterapeuta"));
-  console.table(watch("psicologo"));
-  console.table(watch("medico"));
-  console.table(watch("equitador"));
+  const getNavbarStyle = () => {
+    const style: CSSProperties = { top: "0px" };
+
+    return style;
+  };
+
+  const renderLink = ({ label, to }: any) => {
+    return (
+      <li className={scss.linkWrapper}>
+        <Link href={to} rel="noreferrer" className={scss.link}>
+          {label}
+        </Link>
+      </li>
+    );
+  };
 
   return (
-    <main className={scss.main}>
-      <div className={scss.container}>
-        <h1 className={scss.title}>Cadastro da Equipe</h1>
+    <>
+      <header className={scss.header}>
+        <nav className={navContainer.join(" ")} style={getNavbarStyle()}>
+          <ul className={scss.linksList}>
+            {renderLink({ label: "Página Inicial", to: "/" })}
+            {renderLink({ label: "Novo Praticante", to: "/praticante" })}
+          </ul>
+        </nav>
+      </header>
+      <main className={scss.main}>
+        <div className={scss.container}>
+          <h1 className={scss.title}>Cadastro da Equipe</h1>
 
-        <form>
-          <h2 className={scss.subtitle}>Equipe Básica</h2>
+          <form>
+            <h2 className={scss.subtitle}>Equipe Básica</h2>
 
-          <div className={scss.inputGroups}>
-            {renderInput(basicTeam.fisioterapeuta, "Fisioterapeuta")}
-          </div>
+            <div className={scss.inputGroups}>
+              {renderInput(basicTeam.fisioterapeuta, "Fisioterapeuta")}
+            </div>
 
-          <div className={scss.divider} />
+            <div className={scss.divider} />
 
-          <div className={scss.inputGroups}>
-            {renderInput(basicTeam.psicologo, "Psicólogo")}
-          </div>
+            <div className={scss.inputGroups}>
+              {renderInput(basicTeam.psicologo, "Psicólogo")}
+            </div>
 
-          <div className={scss.divider} />
+            <div className={scss.divider} />
 
-          <div className={scss.inputGroups}>
-            {renderInput(basicTeam.medico, "Médico")}
-          </div>
+            <div className={scss.inputGroups}>
+              {renderInput(basicTeam.medico, "Médico")}
+            </div>
 
-          <div className={scss.divider} />
+            <div className={scss.divider} />
 
-          <div className={scss.inputGroups}>
-            {renderInput(basicTeam.equitador, "Equitador")}
-          </div>
-        </form>
-      </div>
-    </main>
+            <div className={scss.inputGroups}>
+              {renderInput(basicTeam.equitador, "Equitador")}
+            </div>
+          </form>
+        </div>
+      </main>
+    </>
   );
 }

@@ -1,6 +1,62 @@
 @use "@/app/styles/colors.module.scss" as *;
 @use "@/app/styles/breakpoints" as *;
 
+.header {
+  width: 100%;
+  .navContainer {
+    display: flex;
+    width: 87%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px 24px;
+
+    box-sizing: border-box;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9995;
+
+    background-color: transparent;
+    backdrop-filter: blur(3px);
+
+    transition: all 0.2s ease-in-out;
+
+    justify-content: flex-end;
+
+    .linksList {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      .linkWrapper {
+        list-style: none;
+        .link {
+          display: flex;
+
+          align-items: center;
+          justify-content: center;
+
+          color: $text;
+
+          font-size: 1.4rem;
+          font-weight: 500;
+          text-decoration: none;
+          letter-spacing: 1px;
+
+          padding: 6px 12px;
+
+          border-radius: 16px;
+
+          &:hover {
+            background: $gray400;
+          }
+        }
+      }
+    }
+  }
+}
+
 .main {
   .container {
     padding: 24px;
@@ -81,7 +137,7 @@
       background: $gray100;
       border-radius: 4px;
 
-      margin: 24px auto 16px;
+      margin: 48px auto 16px;
 
       .inputGroups {
         .inlineGroup {
