@@ -10,14 +10,14 @@ import { RootState } from "@/redux";
 import { useEffect } from "react";
 import Select from "@/components/Select/Select";
 import Option from "@/components/Option/Option";
+import useIsDesktop from "@/hooks/useIsDesktop";
 
 export default function CadastroPraticante() {
+  const isDesktop = useIsDesktop(1280);
   const dispatch = useDispatch();
   const praticantesList = useSelector(
     (state: RootState) => state.praticante.praticantes
   );
-
-  console.log("lista inicial", praticantesList);
 
   const {
     register,
