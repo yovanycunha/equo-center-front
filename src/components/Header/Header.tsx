@@ -1,41 +1,54 @@
 "use client";
 
-import { CSSProperties, FC } from "react";
+import { CSSProperties, FC, useState } from "react";
 import scss from "./Header.module.scss";
-import Link from "next/link";
-import { IRenderLink } from "./types";
 import useIsDesktop from "@/hooks/useIsDesktop";
+import dynamic from "next/dynamic";
+import HeaderLinks from "./components/HeaderLinks/HeaderLinks";
+
+import MenuSVG from "./images/menu-hamburguer.svg";
+
+const HDrawer = dynamic(
+  () => import("./components/HeaderMobileContent/HeaderMobileContent"),
+  {
+    ssr: false,
+  }
+);
 
 const Header: FC = () => {
-  const navContainer = [scss.navContainer];
-  const isDesktop = useIsDesktop(1280);
+  const isDesktop = useIsDesktop(720);
 
-  //TODO: Necessário incrementar para quando o usuário rolar a página realizar animação
+  const [drawerVisible, setDrawerVisible] = useState(false);
+
+  const navContainer = [scss.navContainer];
+
   const getNavbarStyle = () => {
     const style: CSSProperties = { top: "0px" };
 
     return style;
   };
 
-  const renderLink = ({ label, to }: IRenderLink) => {
-    return (
-      <li className={scss.linkWrapper}>
-        <Link href={to} rel="noreferrer" className={scss.link}>
-          {label}
-        </Link>
-      </li>
-    );
-  };
-
   return (
     <header className={scss.header}>
       <nav className={navContainer.join(" ")} style={getNavbarStyle()}>
-        {isDesktop && (
-          <ul className={scss.linksList}>
-            {renderLink({ label: "Página Inicial", to: "/" })}
-            {renderLink({ label: "Novo Praticante", to: "/praticante" })}
-            {renderLink({ label: "Nova Equipe", to: "/centro" })}
-          </ul>
+        {isDesktop && <HeaderLinks />}
+        {!isDesktop && (
+          <>
+            <button
+              type="button"
+              className={scss.menuButton}
+              onClick={() => {
+                setDrawerVisible(true);
+              }}
+              aria-label="open mobile menu"
+            >
+              <MenuSVG className={scss.menuIcon} />
+            </button>
+            <HDrawer
+              isOpen={drawerVisible}
+              onClose={() => setDrawerVisible(false)}
+            />
+          </>
         )}
       </nav>
     </header>

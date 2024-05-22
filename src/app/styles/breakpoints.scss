@@ -1,7 +1,14 @@
+$smartphoneExtraSmall: 320px;
 $tabletMedium: 720px;
 $pcSmall: 1024px;
 $pcMedium: 1280px;
 $pcLarge: 1440px;
+
+@mixin from320() {
+  @media screen and (min-width: $smartphoneExtraSmall) {
+    @content;
+  }
+}
 
 @mixin from720() {
   @media screen and (min-width: $tabletMedium) {

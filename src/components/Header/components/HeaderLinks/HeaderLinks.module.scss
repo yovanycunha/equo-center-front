@@ -1,0 +1,61 @@
+@use "@/app/styles/colors.module.scss" as *;
+@use "@/app/styles/breakpoints" as *;
+
+.linksList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  margin-top: 32px;
+
+  .linkWrapper {
+    list-style: none;
+
+    .link {
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+
+      color: $white;
+      text-transform: uppercase;
+
+      font-size: 1.6rem;
+      font-weight: 600;
+      line-height: 2.4rem;
+      text-decoration: none;
+
+      padding: 8px 0;
+
+      border-radius: 8px;
+
+      outline: none;
+
+      .arrow {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
+
+@include from720 {
+  .linksList {
+    margin-top: 0;
+    flex-direction: row;
+
+    .linkWrapper {
+      .link {
+        color: $text;
+        justify-content: center;
+        text-transform: capitalize;
+
+        padding: 8px 12px;
+
+        &:hover {
+          background: $gray400;
+        }
+      }
+    }
+  }
+}

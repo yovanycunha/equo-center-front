@@ -1,0 +1,119 @@
+@use "@/app/styles/colors.module.scss" as *;
+@use "@/app/styles/breakpoints" as *;
+
+.drawerWrapper {
+  position: fixed;
+  z-index: 9998;
+  inset: 0;
+
+  visibility: hidden;
+
+  &.drawerOpen {
+    visibility: visible;
+
+    .drawerContainer {
+      opacity: 1;
+
+      transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+      visibility: visible;
+    }
+
+    .drawerContent {
+      transform: none;
+
+      pointer-events: initial;
+
+      visibility: visible;
+
+      &.left {
+        left: 0;
+      }
+
+      &.bottom {
+        min-height: 100%;
+
+        top: 40px;
+        bottom: 0;
+      }
+
+      &.right {
+        right: 0;
+      }
+    }
+  }
+
+  .drawerContainer {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+
+    background-color: rgba($black, 0.5);
+    opacity: 0;
+
+    visibility: hidden;
+  }
+
+  .drawerContent {
+    &.left {
+      left: -1500px;
+    }
+
+    &.bottom {
+      right: 0;
+      bottom: -1500px;
+      left: 0;
+    }
+
+    &.right {
+      right: -1500px;
+    }
+
+    &.fullScreen {
+      width: 100%;
+    }
+
+    .close {
+      position: absolute;
+      top: 21px;
+      right: 21px;
+      z-index: 1;
+
+      cursor: pointer;
+    }
+  }
+}
+
+@include from1024 {
+  .drawerContent {
+    padding: 24px 70px;
+  }
+}
+
+.drawerContent {
+  width: 70%;
+  max-height: 100%;
+  overflow-y: auto;
+
+  margin: auto;
+  padding: 24px;
+
+  box-sizing: border-box;
+
+  position: absolute;
+
+  background-color: #212121;
+
+  transition: all 0.3s ease-out;
+
+  pointer-events: none;
+  visibility: hidden;
+}
