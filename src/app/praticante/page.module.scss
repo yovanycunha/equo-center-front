@@ -42,7 +42,7 @@
   }
 }
 
-@include from1024 {
+@include from720 {
   .main {
     .container {
       width: 87%;
@@ -50,7 +50,7 @@
       background: $gray100;
       border-radius: 4px;
 
-      margin: 24px auto 16px;
+      margin: 48px auto 16px;
 
       .inputGroups {
         .inlineGroup {

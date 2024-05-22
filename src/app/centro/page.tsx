@@ -161,39 +161,36 @@ export default function CadastroEquipe() {
   };
 
   return (
-    <>
-      {/* <Header /> */}
-      <main className={scss.main}>
-        <div className={scss.container}>
-          <h1 className={scss.title}>Cadastro da Equipe</h1>
+    <main className={scss.main}>
+      <div className={scss.container}>
+        <h1 className={scss.title}>Cadastro da Equipe</h1>
 
-          <form>
-            <h2 className={scss.subtitle}>Equipe Básica</h2>
+        <form>
+          <h2 className={scss.subtitle}>Equipe Básica</h2>
 
-            <div className={scss.inputGroups}>
-              {renderInput(basicTeam.fisioterapeuta, "Fisioterapeuta")}
-            </div>
+          <div className={scss.inputGroups}>
+            {renderInput(basicTeam.fisioterapeuta, "Fisioterapeuta")}
+          </div>
 
-            <div className={scss.divider} />
+          <div className={scss.divider} />
 
-            <div className={scss.inputGroups}>
-              {renderInput(basicTeam.psicologo, "Psicólogo")}
-            </div>
+          <div className={scss.inputGroups}>
+            {renderInput(basicTeam.psicologo, "Psicólogo")}
+          </div>
 
-            <div className={scss.divider} />
+          <div className={scss.divider} />
 
-            <div className={scss.inputGroups}>
-              {renderInput(basicTeam.medico, "Médico")}
-            </div>
+          <div className={scss.inputGroups}>
+            {renderInput(basicTeam.medico, "Médico")}
+          </div>
 
-            <div className={scss.divider} />
+          <div className={scss.divider} />
 
-            <div className={scss.inputGroups}>
-              {renderInput(basicTeam.equitador, "Equitador")}
-            </div>
-          </form>
-        </div>
-      </main>
-    </>
+          <div className={scss.inputGroups}>
+            {renderInput(basicTeam.equitador, "Equitador")}
+          </div>
+        </form>
+      </div>
+    </main>
   );
 }
