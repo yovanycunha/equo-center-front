@@ -29,7 +29,7 @@ const Input: FC<IInputProps> = (props) => {
 
   const renderErrorMessage = () => (
     <div className={scss.errorWrapper}>
-      {/* <img src="./images/alert.svg" alt="" className={scss.icon} /> */}
+      <AlertIcon className={scss.icon} />
       <span className={scss.errorMessage}>Este campo é obrigatório.</span>
     </div>
   );
