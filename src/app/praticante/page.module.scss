@@ -6,6 +6,11 @@
     padding: 24px;
     margin: 0 auto 24px;
 
+    border-radius: 16px;
+
+    background: $white;
+    box-shadow: 0 5px 20px 0 rgba($black, 0.15);
+
     .title {
       color: $text;
       text-align: start;
@@ -47,10 +52,8 @@
     .container {
       width: 87%;
       max-width: 1200px;
-      background: $gray100;
-      border-radius: 4px;
 
-      margin: 48px auto 16px;
+      margin: 32px auto 16px;
 
       .inputGroups {
         .inlineGroup {

@@ -231,6 +231,7 @@ export default function CadastroPraticante() {
               />
 
               <Select
+                className={scss.nameInput}
                 arrow
                 value={watch("genero")}
                 errors={!!errors.genero}
