@@ -43,6 +43,7 @@
   .linksList {
     margin-top: 0;
     flex-direction: row;
+    gap: 16px;
 
     .linkWrapper {
       .link {
@@ -50,7 +51,7 @@
         justify-content: center;
         text-transform: capitalize;
 
-        padding: 8px 12px;
+        padding: 0;
 
         &:hover {
           background: $gray400;

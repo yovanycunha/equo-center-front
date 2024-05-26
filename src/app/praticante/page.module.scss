@@ -2,11 +2,11 @@
 @use "@/app/styles/breakpoints" as *;
 
 .main {
+  background: $backgroundColor;
+
   .container {
     padding: 24px;
-    margin: 0 auto 24px;
-
-    border-radius: 16px;
+    margin: 0 auto;
 
     background: $white;
     box-shadow: 0 5px 20px 0 rgba($black, 0.15);
@@ -49,11 +49,12 @@
 
 @include from720 {
   .main {
+    padding: 32px 0;
     .container {
       width: 87%;
       max-width: 1200px;
 
-      margin: 32px auto 16px;
+      border-radius: 16px;
 
       .inputGroups {
         .inlineGroup {
