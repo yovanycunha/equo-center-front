@@ -51,7 +51,9 @@
         justify-content: center;
         text-transform: capitalize;
 
-        padding: 0;
+        padding: 4px 8px;
+
+        outline: none;
 
         &:hover {
           background: $gray400;
