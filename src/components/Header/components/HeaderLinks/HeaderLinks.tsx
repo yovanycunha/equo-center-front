@@ -33,6 +33,7 @@ const HeaderLinks: FC<IHeaderLinksProps> = (props) => {
     <ul className={scss.linksList}>
       {renderLink({ label: "Página Inicial", to: "/" })}
       {renderLink({ label: "Novo Praticante", to: "/praticante" })}
+      {renderLink({ label: "Todos Praticantes", to: "/praticantes" })}
       {renderLink({ label: "Nova Equipe", to: "/centro" })}
     </ul>
   );

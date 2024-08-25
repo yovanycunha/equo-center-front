@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.scss";
 import Providers from "./providers";
 import Header from "@/components/Header/Header";
+import { ReactQueryProvider } from "./react-query-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,8 +19,10 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <Header />
-          {children}
-          <div id="drawers-portal" />
+          <ReactQueryProvider>
+            {children}
+            <div id="drawers-portal" />
+          </ReactQueryProvider>
         </body>
       </html>
     </Providers>

@@ -1,0 +1,79 @@
+@use "@/app/styles/colors.module.scss" as *;
+@use "@/app/styles/breakpoints" as *;
+
+@mixin ellipsis($lineCount) {
+  overflow: hidden;
+
+  display: -webkit-box;
+
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lineCount;
+}
+
+.main {
+  background: $backgroundColor;
+  min-height: 100vh;
+  .container {
+    padding: 24px;
+    margin: 0 auto;
+
+    background: $white;
+    box-shadow: 0 5px 20px 0 rgba($black, 0.15);
+
+    .title {
+      color: $text;
+      text-align: start;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 2.7rem;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid $gray600;
+    }
+
+    .listContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .practContainer {
+        display: grid;
+        grid-template-columns: 30% 32%;
+        gap: 12px;
+        border-radius: 4px;
+        padding: 0 8px;
+        box-shadow: 0 5px 20px 0 rgba($black, 0.15);
+
+        .practInfo {
+          color: $text;
+          font-size: 1.4rem;
+          font-weight: 400;
+          line-height: 2.2rem;
+          margin: 8px 0;
+
+          @include ellipsis(1);
+        }
+      }
+    }
+  }
+}
+
+@include from720 {
+  .main {
+    padding: 32px 0;
+    .container {
+      width: 87%;
+      max-width: 1200px;
+
+      border-radius: 16px;
+
+      .listContainer {
+        .practContainer {
+          display: grid;
+          grid-template-columns: 200px 200px;
+        }
+      }
+    }
+  }
+}

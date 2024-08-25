@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import scss from "./page.module.scss";
-import { EGenero, IPraticante } from "./types";
+import { EGender, IPraticante } from "./types";
 import Input from "@/components/Input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "@/components/Button/Button";
@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import Select from "@/components/Select/Select";
 import Option from "@/components/Option/Option";
 import useIsDesktop from "@/hooks/useIsDesktop";
+import { PractitionersService } from "@/services/practitioners/practitioners";
+import moment from "moment";
 
 export default function CadastroPraticante() {
   const isDesktop = useIsDesktop(1280);
@@ -18,7 +20,7 @@ export default function CadastroPraticante() {
   const praticantesList = useSelector(
     (state: RootState) => state.praticante.praticantes
   );
-
+  
   const {
     register,
     handleSubmit,
@@ -30,10 +32,10 @@ export default function CadastroPraticante() {
     clearErrors,
   } = useForm<IPraticante>({
     mode: "onBlur",
-    defaultValues: { genero: EGenero.Masculino },
+    defaultValues: { gender: EGender.Masculino },
   });
 
-  const nomeRef = register("nome", {
+  const nomeRef = register("name", {
     required: true,
     minLength: 3,
   });
@@ -43,74 +45,107 @@ export default function CadastroPraticante() {
     minLength: 3,
   });
 
-  const dataNascimentoRef = register("dataNascimento", {
+  const birthdateRef = register("birthdate", {
     required: true,
     minLength: 8,
+    pattern: {
+      value: /^(3[01]|[12][0-9]|0?[1-9])(\/|-)(1[0-2]|0?[1-9])\2([0-9]{2})?[0-9]{2}$/,
+      message: "Data inválida",
+    }
   });
 
-  const idadeRef = register("idade", {
+  const ageRef = register("age", {
     required: false,
     maxLength: 2,
   });
 
-  const dataAdmissaoRef = register("dataAdmissao", {
+  const admissiondateRef = register("admissiondate", {
     required: false,
   });
 
-  const generoRef = register("genero", {
+  const genderRef = register("gender", {
     required: false,
   });
 
-  const documentoRef = register("documento", {
+  const documentRef = register("document", {
     required: true,
     minLength: 7,
   });
 
-  const nomeResponsavelRef = register("nomeResponsavel", {
+  const sponsorNameRef = register("sponsor.name", {
     required: true,
     minLength: 3,
   });
 
-  const telefoneResponsavelRef = register("telefoneResponsavel", {
+  const sponsorPhoneRef = register("sponsor.phone", {
     required: true,
     //TODO: Add phone validation
   });
 
-  const documentoResponsavelRef = register("documentoResponsavel", {
+  const sponsorDocumentRef = register("sponsor.document", {
     required: true,
     minLength: 7,
   });
 
-  const emailResponsavelRef = register("emailResponsavel", {
+  const sponsorEmailRef = register("sponsor.email", {
     required: false,
     //TODO: Add email validation
   });
 
-  const enderecoRef = register("endereco", {
+  const streetRef = register("address.street", {
     required: false,
   });
 
-  const cidadeRef = register("cidade", {
+  const cityRef = register("address.city", {
     required: false,
   });
 
-  const bairroRef = register("bairro", {
+  const neiboardhoodRef = register("address.neiboardhood", {
     required: false,
   });
+
+  const handleBirthdateBlur = (e: any) => {
+    birthdateRef.onBlur(e);
+    
+    const formattedDate = moment(watch("birthdate"), "DD/MM/YYYY", 'pt-br', true);
+    if (!formattedDate.isValid()) {
+      setError("birthdate", {
+        type: "valueAsDate",
+        message: "Data inválida",
+      })
+    }
+  }
+
+  const handleAdmissiondateBlur = (e: any) => {
+    admissiondateRef.onBlur(e);
+    
+    const formattedDate = moment(watch("admissiondate"), "DD/MM/YYYY", 'pt-br', true);
+    if (!formattedDate.isValid()) {
+      setError("admissiondate", {
+        type: "valueAsDate",
+        message: "Data inválida",
+      })
+    }
+  }
 
   const onSubmit = async (data: IPraticante) => {
+    console.log(data);
+    
     try {
       dispatch({ type: "praticante/addPraticante", payload: data });
-      reset();
+      // const response = await PractitionersService.createPractitioner(data);
+      // // reset();
+      // console.log(response);
+      
     } catch (err: any) {
       console.log(err);
     }
   };
 
-  const nascimentoValue = watch("dataNascimento");
-  const admissaoValue = watch("dataAdmissao");
+  const birthdateValue = watch("birthdate");
+  const admissiondateValue = watch("admissiondate");
 
-  const telefoneValue = watch("telefoneResponsavel");
+  const sponsorPhone = watch("sponsor.phone");
 
   const normalizeCepNumber = (value: String | undefined) => {
     if (!value) return "";
@@ -153,12 +188,12 @@ export default function CadastroPraticante() {
   };
 
   const renderOptions = () =>
-    (Object.keys(EGenero) as Array<keyof typeof EGenero>)
+    (Object.keys(EGender) as Array<keyof typeof EGender>)
       .map((gender, index) => (
         <Option
           key={`${gender + index}`}
           value={gender}
-          selected={watch("genero") === gender}
+          selected={watch("gender") === gender}
         >
           {gender}
         </Option>
@@ -166,13 +201,13 @@ export default function CadastroPraticante() {
       .reverse();
 
   useEffect(() => {
-    setValue("dataAdmissao", normalizeDate(admissaoValue));
-    setValue("dataNascimento", normalizeDate(nascimentoValue));
-  }, [admissaoValue, nascimentoValue, setValue]);
+    setValue("admissiondate", normalizeDate(admissiondateValue));
+    setValue("birthdate", normalizeDate(birthdateValue));
+  }, [admissiondateValue, birthdateValue, setValue]);
 
   useEffect(() => {
-    setValue("telefoneResponsavel", normalizePhoneNumber(telefoneValue));
-  }, [telefoneValue, setValue]);
+    setValue("sponsor.phone", normalizePhoneNumber(sponsorPhone));
+  }, [sponsorPhone, setValue]);
 
   return (
     <main className={scss.main}>
@@ -185,33 +220,33 @@ export default function CadastroPraticante() {
               name={nomeRef.name}
               placeholder="Nome"
               inputref={nomeRef.ref}
-              value={watch("nome")}
+              value={watch("name")}
               onChange={nomeRef.onChange}
               onBlur={nomeRef.onBlur}
-              errors={errors.nome && true}
-              errorMessage={errors.nome?.message}
+              errors={errors.name && true}
+              errorMessage={errors.name?.message}
             />
             <div className={scss.inlineGroup}>
               <Input
-                name={dataNascimentoRef.name}
+                name={birthdateRef.name}
                 placeholder="Data de Nascimento"
-                inputref={dataNascimentoRef.ref}
-                value={watch("dataNascimento")}
-                onChange={dataNascimentoRef.onChange}
-                onBlur={dataNascimentoRef.onBlur}
-                errors={errors.dataNascimento && true}
-                errorMessage={errors.dataNascimento?.message}
+                inputref={birthdateRef.ref}
+                value={watch("birthdate")}
+                onChange={birthdateRef.onChange}
+                onBlur={handleBirthdateBlur}
+                errors={errors.birthdate && true}
+                errorMessage={errors.birthdate?.message}
                 className={scss.nameInput}
               />
 
               <Input
-                name={idadeRef.name}
+                name={ageRef.name}
                 placeholder="Idade"
-                inputref={idadeRef.ref}
-                value={watch("idade")}
-                onChange={idadeRef.onChange}
-                onBlur={idadeRef.onBlur}
-                errors={errors.CID && true}
+                inputref={ageRef.ref}
+                value={watch("age")}
+                onChange={ageRef.onChange}
+                onBlur={ageRef.onBlur}
+                errors={errors.age && true}
                 errorMessage={errors.CID?.message}
                 className={scss.nameInput}
               />
@@ -219,37 +254,37 @@ export default function CadastroPraticante() {
 
             <div className={scss.inlineGroup}>
               <Input
-                name={documentoRef.name}
+                name={documentRef.name}
                 placeholder="Documento"
-                inputref={documentoRef.ref}
-                value={watch("documento")}
-                onChange={documentoRef.onChange}
-                onBlur={documentoRef.onBlur}
-                errors={errors.documento && true}
-                errorMessage={errors.documento?.message}
+                inputref={documentRef.ref}
+                value={watch("document")}
+                onChange={documentRef.onChange}
+                onBlur={documentRef.onBlur}
+                errors={errors.document && true}
+                errorMessage={errors.document?.message}
                 className={scss.nameInput}
               />
 
               <Select
                 className={scss.nameInput}
                 arrow
-                value={watch("genero")}
-                errors={!!errors.genero}
+                value={watch("gender")}
+                errors={!!errors.gender}
                 label="Gênero"
-                onChange={(value: keyof typeof EGenero) =>
-                  setValue("genero", value)
+                onChange={(value: keyof typeof EGender) =>
+                  setValue("gender", value)
                 }
                 errorMessage="Gênero é um campo obrigatório."
                 onBlur={() => {
-                  if (!watch("genero")) {
-                    setError("genero", {
+                  if (!watch("gender")) {
+                    setError("gender", {
                       type: "manual",
                       message: "Gênero é um campo obrigatório",
                     });
                   }
                 }}
                 onFocus={() => {
-                  clearErrors("genero");
+                  clearErrors("gender");
                 }}
               >
                 {renderOptions()}
@@ -270,14 +305,14 @@ export default function CadastroPraticante() {
 
             <div className={scss.inlineGroup}>
               <Input
-                name={dataAdmissaoRef.name}
+                name={admissiondateRef.name}
                 placeholder="Data de admissão"
-                inputref={dataAdmissaoRef.ref}
-                value={watch("dataAdmissao")}
-                onChange={dataAdmissaoRef.onChange}
-                onBlur={dataAdmissaoRef.onBlur}
-                errors={errors.dataAdmissao && true}
-                errorMessage={errors.dataAdmissao?.message}
+                inputref={admissiondateRef.ref}
+                value={watch("admissiondate")}
+                onChange={admissiondateRef.onChange}
+                onBlur={handleAdmissiondateBlur}
+                errors={errors.admissiondate && true}
+                errorMessage={errors.admissiondate?.message}
                 className={scss.nameInput}
               />
 
@@ -296,85 +331,85 @@ export default function CadastroPraticante() {
 
             <h2 className={scss.subtitle}>Informações do Responsável</h2>
             <Input
-              name={nomeResponsavelRef.name}
+              name={sponsorNameRef.name}
               placeholder="Nome do Responsável"
-              inputref={nomeResponsavelRef.ref}
-              value={watch("nomeResponsavel")}
-              onChange={nomeResponsavelRef.onChange}
-              onBlur={nomeResponsavelRef.onBlur}
-              errors={errors.nomeResponsavel && true}
-              errorMessage={errors.nomeResponsavel?.message}
+              inputref={sponsorNameRef.ref}
+              value={watch("sponsor.name")}
+              onChange={sponsorNameRef.onChange}
+              onBlur={sponsorNameRef.onBlur}
+              errors={errors.sponsor?.name && true}
+              errorMessage={errors.sponsor?.name?.message}
             />
 
             <div className={scss.inlineGroup}>
               <Input
-                name={documentoResponsavelRef.name}
+                name={sponsorDocumentRef.name}
                 placeholder="Documento do Responsável"
-                inputref={documentoResponsavelRef.ref}
-                value={watch("documentoResponsavel")}
-                onChange={documentoResponsavelRef.onChange}
-                onBlur={documentoResponsavelRef.onBlur}
-                errors={errors.documentoResponsavel && true}
-                errorMessage={errors.documentoResponsavel?.message}
+                inputref={sponsorDocumentRef.ref}
+                value={watch("sponsor.document")}
+                onChange={sponsorDocumentRef.onChange}
+                onBlur={sponsorDocumentRef.onBlur}
+                errors={errors.sponsor?.document && true}
+                errorMessage={errors.sponsor?.document?.message}
                 className={scss.nameInput}
               />
 
               <Input
-                name={telefoneResponsavelRef.name}
+                name={sponsorPhoneRef.name}
                 placeholder="Telefone"
-                inputref={telefoneResponsavelRef.ref}
-                value={watch("telefoneResponsavel")}
-                onChange={telefoneResponsavelRef.onChange}
-                onBlur={telefoneResponsavelRef.onBlur}
-                errors={errors.telefoneResponsavel && true}
-                errorMessage={errors.telefoneResponsavel?.message}
+                inputref={sponsorPhoneRef.ref}
+                value={watch("sponsor.phone")}
+                onChange={sponsorPhoneRef.onChange}
+                onBlur={sponsorPhoneRef.onBlur}
+                errors={errors.sponsor?.phone && true}
+                errorMessage={errors.sponsor?.phone?.message}
                 className={scss.nameInput}
               />
             </div>
 
             <Input
-              name={emailResponsavelRef.name}
+              name={sponsorEmailRef.name}
               placeholder="E-mail"
-              inputref={emailResponsavelRef.ref}
-              value={watch("emailResponsavel")}
-              onChange={emailResponsavelRef.onChange}
-              onBlur={emailResponsavelRef.onBlur}
-              errors={errors.emailResponsavel && true}
-              errorMessage={errors.emailResponsavel?.message}
+              inputref={sponsorEmailRef.ref}
+              value={watch("sponsor.email")}
+              onChange={sponsorEmailRef.onChange}
+              onBlur={sponsorEmailRef.onBlur}
+              errors={errors.sponsor?.email && true}
+              errorMessage={errors.sponsor?.email?.message}
             />
 
             <h2 className={scss.subtitle}>Endereço</h2>
             <Input
-              name={cidadeRef.name}
+              name={cityRef.name}
               placeholder="Cidade"
-              inputref={cidadeRef.ref}
-              value={watch("cidade")}
-              onChange={cidadeRef.onChange}
-              onBlur={cidadeRef.onBlur}
-              errors={errors.cidade && true}
-              errorMessage={errors.cidade?.message}
+              inputref={cityRef.ref}
+              value={watch("address.city")}
+              onChange={cityRef.onChange}
+              onBlur={cityRef.onBlur}
+              errors={errors.address?.city && true}
+              errorMessage={errors.address?.city?.message}
             />
 
             <Input
-              name={enderecoRef.name}
+              name={streetRef.name}
               placeholder="Endereço"
-              inputref={enderecoRef.ref}
-              value={watch("endereco")}
-              onChange={enderecoRef.onChange}
-              onBlur={enderecoRef.onBlur}
-              errors={errors.endereco && true}
-              errorMessage={errors.endereco?.message}
+              inputref={streetRef.ref}
+              value={watch("address.street")}
+              onChange={streetRef.onChange}
+              onBlur={streetRef.onBlur}
+              errors={errors.address?.street && true}
+              errorMessage={errors.address?.street?.message}
             />
 
             <Input
-              name={bairroRef.name}
+              name={neiboardhoodRef.name}
               placeholder="Bairro"
-              inputref={bairroRef.ref}
-              value={watch("bairro")}
-              onChange={bairroRef.onChange}
-              onBlur={bairroRef.onBlur}
-              errors={errors.bairro && true}
-              errorMessage={errors.bairro?.message}
+              inputref={neiboardhoodRef.ref}
+              value={watch("address.neiboardhood")}
+              onChange={neiboardhoodRef.onChange}
+              onBlur={neiboardhoodRef.onBlur}
+              errors={errors.address?.neiboardhood && true}
+              errorMessage={errors.address?.neiboardhood?.message}
             />
           </div>
 

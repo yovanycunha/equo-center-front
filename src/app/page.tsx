@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import scss from "./page.module.scss";
 import Input from "@/components/Input/Input";
 import Button from "@/components/Button/Button";
+import { PractitionersService } from "@/services/practitioners/practitioners";
+import { Suspense, use } from "react";
 
 type TAtividade = {
   nome: string;
@@ -42,13 +44,13 @@ export default function Home() {
   return (
     <main className={scss.main}>
       <div className={scss.container}>
-        <h1 className={scss.title}>Cadastro de Prática</h1>
+        {/* <h1 className={scss.title}>Cadastro de Prática</h1> */}
 
-        <form>
+        {/* <form>
           <div className={scss.inputGroup}>
-            <Input
-              name={praticanteRef.name}
-              placeholder="Nome do Praticante"
+          <Input
+          name={praticanteRef.name}
+          placeholder="Nome do Praticante"
               inputref={praticanteRef.ref}
               value={watch("praticante")}
               onChange={praticanteRef.onChange}
@@ -74,7 +76,7 @@ export default function Home() {
           <Button type="submit" loading={false}>
             Cadastrar
           </Button>
-        </form>
+        </form> */}
       </div>
     </main>
   );

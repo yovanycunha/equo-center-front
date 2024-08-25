@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
+    "@tanstack/react-query": "^5.51.24",
+    "@tanstack/react-query-devtools": "^5.51.24",
+    "axios": "^1.7.4",
+    "moment": "^2.30.1",
     "next": "14.2.1",
     "react": "^18",
     "react-dom": "^18",
@@ -20,6 +24,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@tanstack/eslint-plugin-query": "^5.51.15",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
