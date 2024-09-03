@@ -20,7 +20,7 @@ export default function CadastroPraticante() {
   const praticantesList = useSelector(
     (state: RootState) => state.praticante.praticantes
   );
-  
+
   const {
     register,
     handleSubmit,
@@ -32,7 +32,7 @@ export default function CadastroPraticante() {
     clearErrors,
   } = useForm<IPraticante>({
     mode: "onBlur",
-    defaultValues: { gender: EGender.Masculino },
+    defaultValues: { gender: EGender.male },
   });
 
   const nomeRef = register("name", {
@@ -49,9 +49,10 @@ export default function CadastroPraticante() {
     required: true,
     minLength: 8,
     pattern: {
-      value: /^(3[01]|[12][0-9]|0?[1-9])(\/|-)(1[0-2]|0?[1-9])\2([0-9]{2})?[0-9]{2}$/,
+      value:
+        /^(3[01]|[12][0-9]|0?[1-9])(\/|-)(1[0-2]|0?[1-9])\2([0-9]{2})?[0-9]{2}$/,
       message: "Data inválida",
-    }
+    },
   });
 
   const ageRef = register("age", {
@@ -106,37 +107,56 @@ export default function CadastroPraticante() {
 
   const handleBirthdateBlur = (e: any) => {
     birthdateRef.onBlur(e);
-    
-    const formattedDate = moment(watch("birthdate"), "DD/MM/YYYY", 'pt-br', true);
+
+    const formattedDate = moment(
+      watch("birthdate"),
+      "DD/MM/YYYY",
+      "pt-br",
+      true
+    );
     if (!formattedDate.isValid()) {
       setError("birthdate", {
         type: "valueAsDate",
         message: "Data inválida",
-      })
+      });
     }
-  }
+  };
 
   const handleAdmissiondateBlur = (e: any) => {
     admissiondateRef.onBlur(e);
-    
-    const formattedDate = moment(watch("admissiondate"), "DD/MM/YYYY", 'pt-br', true);
+
+    const formattedDate = moment(
+      watch("admissiondate"),
+      "DD/MM/YYYY",
+      "pt-br",
+      true
+    );
     if (!formattedDate.isValid()) {
       setError("admissiondate", {
         type: "valueAsDate",
         message: "Data inválida",
-      })
+      });
     }
-  }
+  };
+
+  const convertDate = (date: string) => {
+    const removeBackslash = date.replace(/\//g, "-");
+    return moment(removeBackslash, "DD-MM-YYYY:").toISOString();
+  };
 
   const onSubmit = async (data: IPraticante) => {
-    console.log(data);
-    
+    const convertedBirthdate = convertDate(data.birthdate);
+    const convertedAdmissiondate = convertDate(data.admissiondate);
+    const convertedAge: number = +data.age;
+
+    data.birthdate = convertedBirthdate;
+    data.admissiondate = convertedAdmissiondate;
+    data.age = convertedAge;
+
     try {
       dispatch({ type: "praticante/addPraticante", payload: data });
-      // const response = await PractitionersService.createPractitioner(data);
-      // // reset();
-      // console.log(response);
-      
+      const response = await PractitionersService.createPractitioner(data);
+      reset();
     } catch (err: any) {
       console.log(err);
     }
@@ -195,7 +215,7 @@ export default function CadastroPraticante() {
           value={gender}
           selected={watch("gender") === gender}
         >
-          {gender}
+          {gender === "female" ? "Feminino" : "Masculino"}
         </Option>
       ))
       .reverse();

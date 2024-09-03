@@ -1,27 +1,27 @@
 export enum EGender {
-  Masculino = "Masculino",
-  Feminino = "Feminino",
+  male = "male",
+  female = "female",
 }
 
 type TAddress = {
   city: string;
   street: string;
   neiboardhood: string;
-}
+};
 
 type TSponsor = {
   name: string;
   document: string;
   phone: string;
   email?: string | undefined;
-}
+};
 
 export interface IPraticante {
   name: string;
   admissiondate: string;
   CID: string;
   birthdate: string;
-  age: string;
+  age: string | number;
   gender: keyof typeof EGender;
   document: string;
 

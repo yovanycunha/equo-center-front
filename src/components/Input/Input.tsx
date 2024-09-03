@@ -30,11 +30,13 @@ const Input: FC<IInputProps> = (props) => {
   const renderErrorMessage = () => (
     <div className={scss.errorWrapper}>
       <AlertIcon className={scss.icon} />
-      <span className={scss.errorMessage}>{props.errorMessage ? props.errorMessage : 'Data inválida!'} </span>
+      <span className={scss.errorMessage}>
+        {props.errorMessage ? props.errorMessage : "Data inválida!"}{" "}
+      </span>
     </div>
   );
 
-  if (isFocused || (props.value && props.value?.length! > 0)) {
+  if (isFocused || (props.value && String(props.value)?.length! > 0)) {
     fieldsetClass.push(scss.fieldsetFocus);
     legendClass.push(scss.legendFocus);
     labelClass.push(scss.labelAnimate);

@@ -5,7 +5,7 @@ export interface IInputProps {
   name: string;
   placeholder: string;
   inputref: RefAttributes<HTMLInputElement>["ref"];
-  value: string | undefined;
+  value: string | undefined | number;
   errors?: boolean | undefined;
   errorMessage?: string | undefined;
   className?: string;
