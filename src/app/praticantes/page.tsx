@@ -25,6 +25,7 @@ export default function Praticantes() {
       return (
         <div className={scss.practContainer} key={pract.name}>
           <p className={scss.practInfo}>{pract.name}</p>
+          <p className={scss.practInfo}>{pract.document}</p>
           <p className={scss.practInfo}>{pract.sponsor.name}</p>
         </div>
       );

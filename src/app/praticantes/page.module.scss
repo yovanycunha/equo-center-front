@@ -39,7 +39,7 @@
 
       .practContainer {
         display: grid;
-        grid-template-columns: 30% 32%;
+        grid-template-columns: 30% 32% 29%;
         gap: 12px;
         border-radius: 4px;
         padding: 0 8px;
@@ -71,7 +71,7 @@
       .listContainer {
         .practContainer {
           display: grid;
-          grid-template-columns: 200px 200px;
+          grid-template-columns: 200px 200px 200px;
         }
       }
     }
