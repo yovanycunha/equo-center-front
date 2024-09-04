@@ -6,7 +6,7 @@ export enum EGender {
 type TAddress = {
   city: string;
   street: string;
-  neiboardhood: string;
+  neiborhood: string;
 };
 
 type TSponsor = {

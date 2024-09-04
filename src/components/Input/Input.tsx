@@ -40,10 +40,11 @@ const Input: FC<IInputProps> = (props) => {
     fieldsetClass.push(scss.fieldsetFocus);
     legendClass.push(scss.legendFocus);
     labelClass.push(scss.labelAnimate);
-    containerClass.push(scss.containerFocus);
   }
 
   if (props.className) containerClass.push(props.className);
+  if (props.disabled) containerClass.push(scss.disabled);
+  if (props.disabled) inputClass.push(scss.disabled);
 
   return (
     <div className={containerClass.join(" ")}>

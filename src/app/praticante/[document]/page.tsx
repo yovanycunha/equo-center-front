@@ -1,24 +1,38 @@
 "use client";
 
+import { useDispatch } from "react-redux";
+import scss from "../page.module.scss";
 import { useForm } from "react-hook-form";
-import scss from "./page.module.scss";
-import { EGender, IPraticante } from "./types";
-import Input from "@/components/Input/Input";
-import { useDispatch, useSelector } from "react-redux";
-import Button from "@/components/Button/Button";
-import { RootState } from "@/redux";
-import { useEffect, useState } from "react";
-import Select from "@/components/Select/Select";
-import Option from "@/components/Option/Option";
-import useIsDesktop from "@/hooks/useIsDesktop";
-import { PractitionersService } from "@/services/practitioners/practitioners";
+import { EGender, IPraticante } from "../types";
 import moment from "moment";
+import Option from "@/components/Option/Option";
+import { useEffect, useState } from "react";
+import Button from "@/components/Button/Button";
+import Input from "@/components/Input/Input";
+import Select from "@/components/Select/Select";
+import { PractitionersService } from "@/services/practitioners/practitioners";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
-export default function CadastroPraticante() {
-  const isDesktop = useIsDesktop(1280);
+const getPractitioner = async (document: string) => {
+  const data = await PractitionersService.getPractitionerByDocument(document);
+  return data;
+};
+
+export default function EditPractitioner({
+  params,
+}: {
+  params: { document: string };
+}) {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [btnLoading, setBtnLoading] = useState(false);
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["practitioner"],
+    queryFn: () => getPractitioner(params.document),
+  });
 
   const {
     register,
@@ -31,8 +45,35 @@ export default function CadastroPraticante() {
     clearErrors,
   } = useForm<IPraticante>({
     mode: "onBlur",
-    defaultValues: { gender: EGender.male },
+    defaultValues: {
+      gender: EGender.male,
+      document: params.document,
+      name: data?.name,
+    },
   });
+
+  const defaultValues = () => {
+    if (!isLoading) {
+      console.log("data", data);
+
+      setValue("name", data?.name);
+      setValue("CID", data?.cid);
+      setValue("age", data?.age);
+      setValue("gender", data?.gender);
+      setValue("sponsor.name", data?.sponsor.name);
+      setValue("sponsor.phone", data?.sponsor.phone);
+      setValue("sponsor.document", data?.sponsor.document);
+      setValue("sponsor.email", data?.sponsor.email);
+      setValue("address.street", data?.address.street);
+      setValue("address.city", data?.address.city);
+      setValue("address.neiborhood", data?.address.neiborhood);
+      setValue(
+        "admissiondate",
+        moment(data?.admissiondate).format("DD/MM/YYYY")
+      );
+      setValue("birthdate", moment(data?.birthdate).format("DD/MM/YYYY"));
+    }
+  };
 
   const nomeRef = register("name", {
     required: true,
@@ -79,7 +120,6 @@ export default function CadastroPraticante() {
 
   const sponsorPhoneRef = register("sponsor.phone", {
     required: true,
-    //TODO: Add phone validation
   });
 
   const sponsorDocumentRef = register("sponsor.document", {
@@ -89,7 +129,6 @@ export default function CadastroPraticante() {
 
   const sponsorEmailRef = register("sponsor.email", {
     required: false,
-    //TODO: Add email validation
   });
 
   const streetRef = register("address.street", {
@@ -152,10 +191,15 @@ export default function CadastroPraticante() {
     data.admissiondate = convertedAdmissiondate;
     data.age = convertedAge;
 
+    console.log("data", data);
+
     try {
-      dispatch({ type: "praticante/addPraticante", payload: data });
-      const response = await PractitionersService.createPractitioner(data);
-      reset();
+      setBtnLoading(true);
+      await PractitionersService.updatePractitioner(data);
+
+      router.push("/praticantes");
+
+      setBtnLoading(false);
     } catch (err: any) {
       console.log(err);
     }
@@ -228,10 +272,14 @@ export default function CadastroPraticante() {
     setValue("sponsor.phone", normalizePhoneNumber(sponsorPhone));
   }, [sponsorPhone, setValue]);
 
+  useEffect(() => {
+    defaultValues();
+  }, [data]);
+
   return (
     <main className={scss.main}>
       <div className={scss.container}>
-        <h1 className={scss.title}>Cadastro do Praticante</h1>
+        <h1 className={scss.title}>Editar Praticante</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2 className={scss.subtitle}>Informações do Praticante</h2>
           <div className={scss.inputGroups}>
@@ -282,6 +330,7 @@ export default function CadastroPraticante() {
                 errors={errors.document && true}
                 errorMessage={errors.document?.message}
                 className={scss.nameInput}
+                disabled
               />
 
               <Select
@@ -308,18 +357,6 @@ export default function CadastroPraticante() {
               >
                 {renderOptions()}
               </Select>
-
-              {/* <Input
-                name={generoRef.name}
-                placeholder="Gênero"
-                inputref={generoRef.ref}
-                value={watch("genero")}
-                onChange={generoRef.onChange}
-                onBlur={generoRef.onBlur}
-                errors={errors.genero && true}
-                errorMessage={errors.genero?.message}
-                className={scss.nameInput}
-              /> */}
             </div>
 
             <div className={scss.inlineGroup}>
@@ -433,7 +470,7 @@ export default function CadastroPraticante() {
           </div>
 
           <Button type="submit" loading={btnLoading}>
-            Cadastrar
+            Editar
           </Button>
         </form>
       </div>

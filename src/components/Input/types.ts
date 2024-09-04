@@ -9,6 +9,7 @@ export interface IInputProps {
   errors?: boolean | undefined;
   errorMessage?: string | undefined;
   className?: string;
+  disabled?: boolean;
 
   onChange?: (e: SyntheticEvent) => void;
   onBlur?: (e: SyntheticEvent) => void;

@@ -8,8 +8,8 @@
   margin: 12px 0 0px;
   letter-spacing: 0.1rem;
 
-  &.containerFocus {
-    color: $info;
+  &.disabled {
+    pointer-events: none;
   }
 
   .inputWrapper {
@@ -29,7 +29,6 @@
       pointer-events: none;
 
       &.labelAnimate {
-        color: $info;
         font-size: 1.2rem;
 
         transform: translate3d(0, -24px, 0);
@@ -60,6 +59,10 @@
 
       background: none;
       letter-spacing: 0.1rem;
+
+      &.disabled {
+        color: #757575;
+      }
 
       &.darkTheme {
         color: $white;

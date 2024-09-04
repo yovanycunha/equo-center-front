@@ -27,4 +27,29 @@ export class PractitionersService {
       throw new Error("Erro ao criar praticante");
     }
   };
+
+  static getPractitionerByDocument = async (document: string) => {
+    try {
+      const { data } = await equocenterback.get(
+        `/api/practitioner/${document}`
+      );
+
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Erro ao buscar praticante");
+    }
+  };
+
+  static updatePractitioner = async (practitioner: any) => {
+    try {
+      const { data } = await equocenterback.patch(
+        `/api/practitioner/update`,
+        practitioner
+      );
+    } catch (error) {
+      console.error(error);
+      throw new Error("Erro ao atualizar praticante");
+    }
+  };
 }
