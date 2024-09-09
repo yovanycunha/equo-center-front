@@ -52,4 +52,13 @@ export class PractitionersService {
       throw new Error("Erro ao atualizar praticante");
     }
   };
+
+  static deletePractitioner = async (document: string) => {
+    try {
+      await equocenterback.delete(`/api/practitioner/${document}`);
+    } catch (error) {
+      console.error(error);
+      throw new Error("Erro ao deletar praticante");
+    }
+  };
 }

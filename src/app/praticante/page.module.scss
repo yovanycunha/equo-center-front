@@ -44,6 +44,17 @@
         gap: 8px;
       }
     }
+
+    .btnsContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 16px;
+
+      .btnRemove {
+        background-color: #de350b;
+      }
+    }
   }
 }
 
@@ -64,6 +75,10 @@
             width: 50%;
           }
         }
+      }
+
+      .btnsContainer {
+        flex-direction: row;
       }
     }
   }

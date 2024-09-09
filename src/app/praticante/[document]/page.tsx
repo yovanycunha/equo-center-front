@@ -205,6 +205,18 @@ export default function EditPractitioner({
     }
   };
 
+  const handleRemovePractitioner = async () => {
+    try {
+      setBtnLoading(true);
+      await PractitionersService.deletePractitioner(params.document);
+
+      router.push("/praticantes");
+      setBtnLoading(false);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
   const birthdateValue = watch("birthdate");
   const admissiondateValue = watch("admissiondate");
 
@@ -469,9 +481,21 @@ export default function EditPractitioner({
             />
           </div>
 
-          <Button type="submit" loading={btnLoading}>
-            Editar
-          </Button>
+          <div className={scss.btnsContainer}>
+            <Button type="submit" loading={btnLoading}>
+              Editar
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                handleRemovePractitioner();
+              }}
+              className={scss.btnRemove}
+              loading={btnLoading}
+            >
+              Deletar
+            </Button>
+          </div>
         </form>
       </div>
     </main>

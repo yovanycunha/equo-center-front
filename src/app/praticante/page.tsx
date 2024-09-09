@@ -432,9 +432,11 @@ export default function CadastroPraticante() {
             />
           </div>
 
-          <Button type="submit" loading={btnLoading}>
-            Cadastrar
-          </Button>
+          <div className={scss.btnsContainer}>
+            <Button type="submit" loading={btnLoading}>
+              Cadastrar
+            </Button>
+          </div>
         </form>
       </div>
     </main>
