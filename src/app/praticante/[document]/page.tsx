@@ -183,19 +183,27 @@ export default function EditPractitioner({
   };
 
   const onSubmit = async (data: IPraticante) => {
+    const { name, gender, CID, sponsor, address } = data;
     const convertedBirthdate = convertDate(data.birthdate);
     const convertedAdmissiondate = convertDate(data.admissiondate);
     const convertedAge: number = +data.age;
 
-    data.birthdate = convertedBirthdate;
-    data.admissiondate = convertedAdmissiondate;
-    data.age = convertedAge;
-
-    console.log("data", data);
+    const dataToSubmit = {
+      birthdate: convertedBirthdate,
+      admissiondate: convertedAdmissiondate,
+      age: convertedAge,
+      olddocument: params.document,
+      newdocument: data.document,
+      name,
+      gender,
+      CID,
+      sponsor,
+      address,
+    };
 
     try {
       setBtnLoading(true);
-      await PractitionersService.updatePractitioner(data);
+      await PractitionersService.updatePractitioner(dataToSubmit);
 
       router.push("/praticantes");
 
@@ -342,7 +350,6 @@ export default function EditPractitioner({
                 errors={errors.document && true}
                 errorMessage={errors.document?.message}
                 className={scss.nameInput}
-                disabled
               />
 
               <Select
