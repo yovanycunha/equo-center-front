@@ -31,7 +31,7 @@ const Input: FC<IInputProps> = (props) => {
     <div className={scss.errorWrapper}>
       <AlertIcon className={scss.icon} />
       <span className={scss.errorMessage}>
-        {props.errorMessage ? props.errorMessage : "Data inválida!"}{" "}
+        {props.errorMessage ? props.errorMessage : "Erro no campo"}
       </span>
     </div>
   );

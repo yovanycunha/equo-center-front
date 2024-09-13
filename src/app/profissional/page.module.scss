@@ -1,0 +1,105 @@
+@use "@/app/styles/colors.module.scss" as *;
+@use "@/app/styles/breakpoints" as *;
+
+.main {
+  background: $backgroundColor;
+  height: 100vh;
+
+  .container {
+    padding: 24px;
+    margin: 0 auto;
+
+    background: $white;
+    box-shadow: 0 5px 20px 0 rgba($black, 0.15);
+
+    .title {
+      color: $text;
+      text-align: start;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 2.7rem;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid $gray600;
+    }
+
+    .subtitle {
+      color: $text;
+      font-size: 1.8rem;
+      font-weight: 600;
+      line-height: 2.2rem;
+      margin: 24px 0 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid $gray300;
+    }
+
+    .inputGroups {
+      display: flex;
+      flex-direction: column;
+
+      margin-bottom: 16px;
+
+      .inlineGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .checkboxContainer {
+        margin-top: 12px;
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+
+        display: flex;
+        align-items: center;
+
+        gap: 8px;
+
+        .checkbox {
+          display: flex;
+        }
+
+        .checkboxText {
+          color: $gray600;
+        }
+      }
+    }
+
+    .btnsContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 16px;
+
+      .btnRemove {
+        background-color: #de350b;
+      }
+    }
+  }
+}
+
+@include from720 {
+  .main {
+    padding: 32px 0;
+    .container {
+      width: 87%;
+      max-width: 1200px;
+
+      border-radius: 16px;
+
+      .inputGroups {
+        .inlineGroup {
+          flex-direction: row;
+
+          .nameInput {
+            width: 50%;
+          }
+        }
+      }
+
+      .btnsContainer {
+        flex-direction: row;
+      }
+    }
+  }
+}
