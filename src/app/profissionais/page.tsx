@@ -37,8 +37,7 @@ export default function Profissionais() {
         <Link
           className={scss.link}
           key={`${professional.name}-${professional.document}`}
-          // href={`/profissional/${professional.document}`}
-          href={`/profissionais`}
+          href={`/profissional/${professional.document}`}
         >
           <div className={scss.professionalContainer} key={professional.name}>
             <p className={scss.professionalInfo}>{professional.name}</p>

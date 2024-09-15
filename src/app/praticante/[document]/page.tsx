@@ -40,7 +40,6 @@ export default function EditPractitioner({
     formState: { errors },
     watch,
     setValue,
-    reset,
     setError,
     clearErrors,
   } = useForm<IPraticante>({
@@ -54,8 +53,6 @@ export default function EditPractitioner({
 
   const defaultValues = () => {
     if (!isLoading) {
-      console.log("data", data);
-
       setValue("name", data?.name);
       setValue("CID", data?.cid);
       setValue("age", data?.age);
@@ -187,12 +184,13 @@ export default function EditPractitioner({
     const convertedBirthdate = convertDate(data.birthdate);
     const convertedAdmissiondate = convertDate(data.admissiondate);
     const convertedAge: number = +data.age;
+    const olddocument = decodeURI(params.document);
 
     const dataToSubmit = {
       birthdate: convertedBirthdate,
       admissiondate: convertedAdmissiondate,
       age: convertedAge,
-      olddocument: params.document,
+      olddocument: olddocument,
       newdocument: data.document,
       name,
       gender,
@@ -500,7 +498,7 @@ export default function EditPractitioner({
               className={scss.btnRemove}
               loading={btnLoading}
             >
-              Deletar
+              Remover
             </Button>
           </div>
         </form>
