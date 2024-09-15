@@ -26,12 +26,12 @@ export default function Profissional() {
     minLength: 3,
   });
 
-  const documentoRef = register("document", {
+  const documentRef = register("document", {
     required: true,
     minLength: 6,
   });
 
-  const especialidadeRef = register("specialty", {
+  const specialtyRef = register("specialty", {
     required: true,
     minLength: 3,
   });
@@ -71,24 +71,24 @@ export default function Profissional() {
             />
             <div className={scss.inlineGroup}>
               <Input
-                name={documentoRef.name}
+                name={documentRef.name}
                 placeholder="Documento"
-                inputref={documentoRef.ref}
+                inputref={documentRef.ref}
                 value={watch("document")}
-                onChange={documentoRef.onChange}
-                onBlur={documentoRef.onBlur}
+                onChange={documentRef.onChange}
+                onBlur={documentRef.onBlur}
                 errors={errors.document && true}
                 errorMessage={errors.document?.message}
                 className={scss.nameInput}
               />
 
               <Input
-                name={especialidadeRef.name}
+                name={specialtyRef.name}
                 placeholder="Especialidade"
-                inputref={especialidadeRef.ref}
+                inputref={specialtyRef.ref}
                 value={watch("specialty")}
-                onChange={especialidadeRef.onChange}
-                onBlur={especialidadeRef.onBlur}
+                onChange={specialtyRef.onChange}
+                onBlur={specialtyRef.onBlur}
                 errors={errors.specialty && true}
                 errorMessage={errors.specialty?.message}
                 className={scss.nameInput}
