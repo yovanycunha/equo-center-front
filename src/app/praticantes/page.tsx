@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "@/components/Loading/Loading";
 import Link from "next/link";
 import useIsDesktop from "@/hooks/useIsDesktop";
+import Button from "@/components/Button/Button";
+import { useRouter } from "next/navigation";
 
 const getAll = async () => {
   const data = await PractitionersService.getPractitioners();
@@ -19,6 +21,11 @@ export default function Praticantes() {
   });
 
   const isDesktop = useIsDesktop(720);
+  const router = useRouter();
+
+  const handleRedirect = () => {
+    router.push("/praticante");
+  };
 
   const renderListHeader = () => {
     return (
@@ -63,7 +70,17 @@ export default function Praticantes() {
   return (
     <main className={scss.main}>
       <div className={scss.container}>
-        <h1 className={scss.title}>Praticantes</h1>
+        <div className={scss.titleContainer}>
+          <h1 className={scss.title}>Praticantes</h1>
+          <Button
+            type="button"
+            loading={false}
+            className={scss.addBtn}
+            onClick={handleRedirect}
+          >
+            Add
+          </Button>
+        </div>
         <div className={scss.listContainer}>
           {renderListHeader()}
           {renderAllPractitioners()}

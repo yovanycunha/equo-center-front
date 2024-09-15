@@ -21,15 +21,27 @@
     background: $white;
     box-shadow: 0 5px 20px 0 rgba($black, 0.15);
 
-    .title {
-      color: $text;
-      text-align: start;
-      font-size: 1.8rem;
-      font-weight: 700;
-      line-height: 2.7rem;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
+    .titleContainer {
+      display: flex;
       border-bottom: 1px solid $gray600;
+      margin-bottom: 12px;
+      justify-content: space-between;
+
+      .title {
+        color: $text;
+        text-align: start;
+        font-size: 1.8rem;
+        font-weight: 700;
+        line-height: 2.7rem;
+        padding-bottom: 8px;
+      }
+
+      .addBtn {
+        padding-bottom: 12px;
+        max-height: 2.7rem;
+        max-width: 100px;
+        padding: 0;
+      }
     }
 
     .listContainer {

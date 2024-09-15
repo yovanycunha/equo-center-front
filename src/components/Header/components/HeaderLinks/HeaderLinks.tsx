@@ -31,10 +31,10 @@ const HeaderLinks: FC<IHeaderLinksProps> = (props) => {
 
   return (
     <ul className={scss.linksList}>
-      {renderLink({ label: "Página Inicial", to: "/" })}
-      {renderLink({ label: "Novo Praticante", to: "/praticante" })}
-      {renderLink({ label: "Todos Praticantes", to: "/praticantes" })}
-      {renderLink({ label: "Nova Equipe", to: "/centro" })}
+      {/* {renderLink({ label: "Página Inicial", to: "/" })} */}
+      {/* {renderLink({ label: "Novo Praticante", to: "/praticante" })} */}
+      {renderLink({ label: "Praticantes", to: "/praticantes" })}
+      {renderLink({ label: "Profissionais", to: "/profissionais" })}
     </ul>
   );
 };

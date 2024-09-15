@@ -14,6 +14,7 @@
 .main {
   background: $backgroundColor;
   min-height: 100vh;
+
   .container {
     padding: 24px;
     margin: 0 auto;
@@ -78,7 +79,12 @@
 
 @include from425() {
   .main {
+    padding: 32px 0;
     .container {
+      width: 87%;
+      max-width: 1200px;
+
+      border-radius: 16px;
       .listContainer {
         flex-flow: wrap;
         max-width: 1200px;
