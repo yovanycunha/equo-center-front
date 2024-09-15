@@ -42,6 +42,7 @@ export default function Profissionais() {
         >
           <div className={scss.professionalContainer} key={professional.name}>
             <p className={scss.professionalInfo}>{professional.name}</p>
+            <p className={scss.professionalInfo}>{professional.specialty}</p>
           </div>
         </Link>
       );

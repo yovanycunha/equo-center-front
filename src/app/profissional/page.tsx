@@ -31,7 +31,7 @@ export default function Profissional() {
     minLength: 6,
   });
 
-  const especialidadeRef = register("speciality", {
+  const especialidadeRef = register("specialty", {
     required: true,
     minLength: 3,
   });
@@ -86,11 +86,11 @@ export default function Profissional() {
                 name={especialidadeRef.name}
                 placeholder="Especialidade"
                 inputref={especialidadeRef.ref}
-                value={watch("speciality")}
+                value={watch("specialty")}
                 onChange={especialidadeRef.onChange}
                 onBlur={especialidadeRef.onBlur}
-                errors={errors.speciality && true}
-                errorMessage={errors.speciality?.message}
+                errors={errors.specialty && true}
+                errorMessage={errors.specialty?.message}
                 className={scss.nameInput}
               />
             </div>

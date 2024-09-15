@@ -53,8 +53,7 @@
         text-decoration: none;
 
         .professionalContainer {
-          display: grid;
-          grid-template-columns: 24% 20% 23%;
+          display: flex;
           gap: 12px;
           border-radius: 4px;
           padding: 0 8px;
@@ -71,6 +70,16 @@
             @include ellipsis(1);
           }
         }
+      }
+    }
+  }
+}
+
+@include from425() {
+  .main {
+    .container {
+      .listContainer {
+        flex-flow: wrap;
       }
     }
   }
