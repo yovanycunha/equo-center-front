@@ -34,8 +34,8 @@ export default function Atividades() {
       return (
         <Link
           className={scss.link}
-          key={`${activity.name}-${activity.document}`}
-          href={`/activity/${activity.document}`}
+          key={`${activity.name}-${activity.id}`}
+          href={`/atividade/${activity.id}`}
         >
           <div className={scss.activityContainer}>
             <p className={scss.activityInfo}>{activity.title}</p>
