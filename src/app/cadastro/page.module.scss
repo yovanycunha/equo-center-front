@@ -1,0 +1,59 @@
+@use "@/app/styles/colors.module.scss" as *;
+@use "@/app/styles/breakpoints" as *;
+
+.main {
+  background: $backgroundColor;
+  height: 100vh;
+
+  .container {
+    padding: 24px;
+    margin: 0 auto;
+
+    background: $white;
+    box-shadow: 0 5px 20px 0 rgba($black, 0.15);
+
+    .title {
+      color: $text;
+      text-align: start;
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 2.7rem;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid $gray600;
+    }
+
+    .inputGroups {
+      display: flex;
+      flex-direction: column;
+
+      margin-bottom: 16px;
+    }
+
+    .btnsContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      .loginBtn {
+        background-color: #0057e1;
+      }
+
+      .registerBtn {
+        padding: 8px;
+        background-color: rgba($color: #000000, $alpha: 0.4);
+      }
+    }
+  }
+}
+
+@include from720 {
+  .main {
+    padding: 32px 0;
+    .container {
+      width: 55%;
+      max-width: 1200px;
+
+      border-radius: 16px;
+    }
+  }
+}
