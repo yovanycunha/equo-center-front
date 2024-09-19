@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import Input from "@/components/Input/Input";
 import Button from "@/components/Button/Button";
 import { useRouter } from "next/navigation";
+import { Auth } from "@/services/auth/Auth";
 
 export default function Login() {
   const [btnLoading, setBtnLoading] = useState(false);
@@ -36,11 +37,23 @@ export default function Login() {
     router.push("/cadastro");
   };
 
+  const onSubmit = async (data: ILogin) => {
+    setBtnLoading(true);
+    try {
+      const response = await Auth.login(data);
+      localStorage.setItem("authToken", response.token);
+      router.push("/praticantes");
+    } catch (error) {
+      console.error(error);
+    }
+    setBtnLoading(false);
+  };
+
   return (
     <main className={scss.main}>
       <div className={scss.container}>
         <h1 className={scss.title}>Login</h1>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className={scss.inputGroups}>
             <Input
               name={emailRef.name}
@@ -79,7 +92,7 @@ export default function Login() {
               }}
               className={scss.registerBtn}
               type="button"
-              loading={btnLoading}
+              loading={false}
             >
               Criar conta
             </Button>

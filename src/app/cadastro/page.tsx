@@ -7,10 +7,13 @@ import { useForm } from "react-hook-form";
 import Input from "@/components/Input/Input";
 import Button from "@/components/Button/Button";
 import { useRouter } from "next/navigation";
+import { Auth } from "@/services/auth/Auth";
 
 export default function Cadastro() {
   const [btnLoading, setBtnLoading] = useState(false);
+
   const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -32,11 +35,22 @@ export default function Cadastro() {
     minLength: 6,
   });
 
+  const onSubmit = async (data: ICadastro) => {
+    setBtnLoading(true);
+    try {
+      await Auth.createUser(data);
+      router.push("/login");
+    } catch (error) {
+      console.error(error);
+    }
+    setBtnLoading(false);
+  };
+
   return (
     <main className={scss.main}>
       <div className={scss.container}>
         <h1 className={scss.title}>Novo usuário</h1>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className={scss.inputGroups}>
             <Input
               name={emailRef.name}
