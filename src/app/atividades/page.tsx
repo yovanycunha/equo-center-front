@@ -56,7 +56,7 @@ export default function Atividades() {
             className={scss.addBtn}
             onClick={handleRedirect}
           >
-            Add
+            Criar Atividade
           </Button>
         </div>
         <div className={scss.listContainer}>{renderActivities()}</div>

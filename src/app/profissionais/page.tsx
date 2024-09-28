@@ -59,7 +59,7 @@ export default function Profissionais() {
             className={scss.addBtn}
             onClick={handleRedirect}
           >
-            Add
+            Adicionar Profissional
           </Button>
           {/* TODO: Colocar ícone */}
         </div>

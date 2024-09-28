@@ -39,7 +39,12 @@ export default function EditProfessional({
     clearErrors,
   } = useForm<IActivity>({
     mode: "onBlur",
-    defaultValues: { feedback: "" },
+    defaultValues: {
+      feedback: "",
+      actions: "",
+      purpose: "",
+      professionals: [],
+    },
   });
 
   const defaultValues = () => {
@@ -54,27 +59,20 @@ export default function EditProfessional({
   };
 
   const titleRef = register("title", {
-    required: true,
     minLength: 3,
   });
 
   const purposeRef = register("purpose", {
-    required: true,
     minLength: 3,
   });
 
   const actionsRef = register("actions", {
-    required: true,
     minLength: 3,
   });
 
-  const professionalsRef = register("professionals", {
-    required: true,
-  });
+  const professionalsRef = register("professionals", {});
 
-  const feedbackRef = register("feedback", {
-    required: false,
-  });
+  const feedbackRef = register("feedback", {});
 
   const handleProfessionalsList = (e: any) => {
     setProfessionalsList(e.target.value);
@@ -114,7 +112,7 @@ export default function EditProfessional({
   return (
     <main className={scss.main}>
       <div className={scss.container}>
-        <h1 className={scss.title}>Cadastro de Atividade</h1>
+        <h1 className={scss.title}>Editar de Atividade</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2 className={scss.subtitle}>Informações da Atividade</h2>
           <div className={scss.inputGroups}>

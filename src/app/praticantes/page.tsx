@@ -78,7 +78,7 @@ export default function Praticantes() {
             className={scss.addBtn}
             onClick={handleRedirect}
           >
-            Add
+            Adicionar Praticante
           </Button>
         </div>
         <div className={scss.listContainer}>

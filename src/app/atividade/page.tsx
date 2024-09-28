@@ -20,7 +20,12 @@ export default function Atividade() {
     reset,
   } = useForm<IActivity>({
     mode: "onBlur",
-    defaultValues: { feedback: "" },
+    defaultValues: {
+      feedback: "",
+      actions: "",
+      purpose: "",
+      professionals: [],
+    },
   });
 
   const titleRef = register("title", {
@@ -29,18 +34,14 @@ export default function Atividade() {
   });
 
   const purposeRef = register("purpose", {
-    required: true,
     minLength: 3,
   });
 
   const actionsRef = register("actions", {
-    required: true,
     minLength: 3,
   });
 
-  const professionalsRef = register("professionals", {
-    required: true,
-  });
+  const professionalsRef = register("professionals", {});
 
   const handleProfessionalsList = (e: any) => {
     setProfessionalsList(e.target.value);
